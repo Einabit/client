@@ -1,0 +1,19 @@
+{
+  "name": "einabit.client.js",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Einabit/client.js.git"
+  },
+  "keywords": [],
+  "author": "einabit",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Einabit/client.js/issues"
+  },
+  "homepage": "https://github.com/Einabit/client.js#readme"
+}
