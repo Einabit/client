@@ -47,7 +47,7 @@ const cl = new Eina(host, key)
 /**
 * tap                           - devuelve el valor actual y suscribe a cambios
 * @param {string} variable      - la variable a la que nos vamos a suscribir
-* @param {string} change        - callback que informa sobre los cambios (value) => void
+* @param {function} change        - callback que informa sobre los cambios (value) => void
 * @param {int?} fromTs          - (opcional) incluir valores desde la fecha indicada
 * @return {function}            - cancela la suscripción
 */
