@@ -1,22 +1,22 @@
-# Why spanish?
+# Why spanish? [Versión en Español](README.es.md)
 
 This package is related to einabit.com, we're a spanish company that provides services in Spain mainland (for the time being). We asume most if not all of our potential clients will prefer spanish over english :\
 
 However if you're interested in working with us drop me a mail (ciro@einabit.com).
 
-# ¿Qué es este repositorio?
+# What is this repo all about?
 
-Este repositorio contiene un SDK o librería para comunicarte con nuestros servicios. Para probar el funcionamiento puedes usar el repositorio https://github.com/Einabit/sandbox para levantar un servicio que emule el comportamiento de nuestra API.
+This repo contains an SDK or library which makes easy to query our services. To test its behavior you can simulate with https://github.com/Einabit/sandbox.
 
-# Instalación
+# Installation
 
-Puedes instalar esta librería a través de NPM
+This library is available through NPM repository
 
 `npm install einabit.client.js`
 
-# Uso básico
+# Basic usage
 
-Suponiendo que tengas levantado un servicio sandbox en 127.0.0.1
+If you have a service available in 127.0.0.1
 
 ```js
 const Eina = require("einabit.client.js");
@@ -33,39 +33,39 @@ setTimeout(() => {
 
 ```
 
-# Documentación
+# Documentation
 
 ```js
 /**
-* Constructor                   - devuelve la instancia configurada
-* @param {string} host          - dirección url donde se aloja la pasarela de datos
-* @param {string} key           - clave única proporcionada por @einabit
-* @return {Client}              - instancia configurada
+* Constructor
+* @param {string} host          - api address
+* @param {string} key           - unique key shared with you
+* @return {Client}              - instance
 */
 const cl = new Eina(host, key)
 
 /**
-* tap                           - devuelve el valor actual y suscribe a cambios
-* @param {string} variable      - la variable a la que nos vamos a suscribir
-* @param {function} change        - callback que informa sobre los cambios (value) => void
-* @param {int?} fromTs          - (opcional) incluir valores desde la fecha indicada
-* @return {function}            - cancela la suscripción
+* tap                           - gets current value and creates a subscription
+* @param {string} variable      - variable subscription
+* @param {function} change        - callback being used (value) => void
+* @param {int?} fromTs          - (optional) if defined the callback will fire for every entry included since that date
+* @return {function}            - ends the subscription
 */
 cl.tap(variable, change, fromTs?)
 
 /**
-* fetch                         - devuelve los registros entre las fechas indicadas
-* @param {string} variable      - la variable que vamos a consultar
-* @param {int} fromTs           - incluir valores desde la fecha indicada
-* @param {int} toTs             - incluir valores hasta la fecha indicada
-* @return {promise}             - promesa que resuelve los datos
+* fetch                         - gets all entries within the date range
+* @param {string} variable      - variable subject
+* @param {int} fromTs           - include values from this date
+* @param {int} toTs             - include values till this date
+* @return {promise}             - promise with all data
 */
 cl.fetch(variable, fromTs, toTs)
 
 /**
-* value                         - devuelve el valor actual de la variable
-* @param {string} variable      - la variable que vamos a consultar
-* @return {promise}             - promesa que resuelve el valor actual
+* value                         - returns the current value
+* @param {string} variable      - subject variable
+* @return {promise}             - promise with the current value
 */
 cl.value(variable)
 ```
