@@ -2,9 +2,8 @@ const net = require("net");
 
 const EMPTY_STR = d => !!d;
 
-const self = function (host, key) {
+const self = function (host) {
   this.host = host;
-  // this.key = key; still unused
 }
 
 self.prototype.tap = function (name, ...aux) {
