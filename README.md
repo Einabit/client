@@ -68,7 +68,7 @@ Conclusion: You can develop your own solution without having to wait to any kind
 /**
 * Constructor
 * @param {string} host          - api address
-* @param {string} key           - unique key shared with you
+* @param {string} key           - unique key shared only with you
 * @return {Client}              - instance
 */
 const cl = new Eina(host, key)
@@ -76,24 +76,26 @@ const cl = new Eina(host, key)
 /**
 * tap                           - gets current value and creates a subscription
 * @param {string} variable      - variable subscription
-* @param {function} change        - callback being used (value) => void
-* @param {int?} fromTs          - (optional) if defined the callback will fire for every entry included since that date
-* @return {function}            - ends the subscription
+* @param {int?} fromTs          - (optional) if defined the callback will include entries since then
+* @param {function} change      - callback being used (value) => void
+* @return {function}            - closes the subscription
 */
-cl.tap(variable, change, fromTs?)
+cl.tap(variable, fromTs?, change)
 
 /**
 * fetch                         - gets all entries within the date range
 * @param {string} variable      - variable subject
 * @param {int} fromTs           - include values from this date
 * @param {int} toTs             - include values till this date
+* @param {function} change      - callback being used (value) => void
 * @return {promise}             - promise with all data
 */
-cl.fetch(variable, fromTs, toTs)
+cl.fetch(variable, fromTs, toTs, change)
 
 /**
 * value                         - returns the current value
 * @param {string} variable      - subject variable
+* @param {function} change      - callback being used (value) => void
 * @return {promise}             - promise with the current value
 */
 cl.value(variable)

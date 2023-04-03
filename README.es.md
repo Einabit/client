@@ -60,35 +60,37 @@ Conclusion: Mientras nosotros realizamos la instalación tú puedes desarrollar 
 
 ```js
 /**
-* Constructor                   - devuelve la instancia configurada
-* @param {string} host          - dirección url donde se aloja la pasarela de datos
-* @param {string} key           - clave única proporcionada por @einabit
-* @return {Client}              - instancia configurada
+* Constructor
+* @param {string} host          - api address
+* @param {string} key           - unique key shared only with you
+* @return {Client}              - instance
 */
 const cl = new Eina(host, key)
 
 /**
-* tap                           - devuelve el valor actual y suscribe a cambios
-* @param {string} variable      - la variable a la que nos vamos a suscribir
-* @param {function} change        - callback que informa sobre los cambios (value) => void
-* @param {int?} fromTs          - (opcional) incluir valores desde la fecha indicada
-* @return {function}            - cancela la suscripción
+* tap                           - gets current value and creates a subscription
+* @param {string} variable      - variable subscription
+* @param {number?} fromTs          - (optional) if defined the callback will include entries since then
+* @param {function} change      - callback being used (value) => void
+* @return {function}            - closes the subscription
 */
-cl.tap(variable, change, fromTs?)
+cl.tap(variable, fromTs?, change)
 
 /**
-* fetch                         - devuelve los registros entre las fechas indicadas
-* @param {string} variable      - la variable que vamos a consultar
-* @param {int} fromTs           - incluir valores desde la fecha indicada
-* @param {int} toTs             - incluir valores hasta la fecha indicada
-* @return {promise}             - promesa que resuelve los datos
+* fetch                         - gets all entries within the date range
+* @param {string} variable      - variable subject
+* @param {number} fromTs           - include values from this date
+* @param {number} toTs             - include values till this date
+* @param {function} change      - callback being used (value) => void
+* @return {promise}             - promise with all data
 */
-cl.fetch(variable, fromTs, toTs)
+cl.fetch(variable, fromTs, toTs, change)
 
 /**
-* value                         - devuelve el valor actual de la variable
-* @param {string} variable      - la variable que vamos a consultar
-* @return {promise}             - promesa que resuelve el valor actual
+* value                         - returns the current value
+* @param {string} variable      - subject variable
+* @param {function} change      - callback being used (value) => void
+* @return {promise}             - promise with the current value
 */
 cl.value(variable)
 ```
