@@ -92,5 +92,14 @@ cl.fetch(variable, fromTs, toTs, change)
 * @param {function} change      - callback being used (value) => void
 * @return {promise}             - promise with the current value
 */
-cl.value(variable)
+cl.value(variable, change)
+
+/**
+* last                          - returns last N values from the stream
+* @param {string} variable      - subject variable
+* @param {number} amount        - amount of values to be included
+* @param {function} change      - callback being used (last) => void
+* @return {promise}             - promise with the last values
+*/
+cl.last(variable, amount, change)
 ```
