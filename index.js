@@ -58,4 +58,20 @@ self.prototype.value = function (name, newLineCbk) {
 
 }
 
+self.prototype.last = function (name, amount, newLineCbk) {
+  const client = new net.Socket();
+  const args = ["last", name, amount];
+  const command = args.join();
+  client.connect(1337, this.host);
+  client.on("connect", () => client.write(command));
+  const buffer = [];
+  client.on("data", d => buffer.push.apply(buffer, d.toString().split("\n").filter(EMPTY_STR)));
+  if (typeof newLineCbk === "function") {
+    client.on("end", () => buffer.forEach(d => newLineCbk(d)));
+  } else {
+    return new Promise(resolve => client.on("end", () => resolve(buffer)));
+  }
+
+}
+
 module.exports = self;
