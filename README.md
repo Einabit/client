@@ -62,6 +62,14 @@ Tip: You can reset the container changing the config file to emulate other behav
 
 Conclusion: You can develop your own solution without having to wait to any kind of IoT installation. Contact us for more information: info@einabit.com
 
+# Security
+
+In case the server requires encryption:
+
+```javascript
+  const { KEY } = process.env; // KEY = "6fff68e8f216334f573e1a115bebe72f"
+  const cli = new Eina("hosted.einabit.api", KEY);
+```
 # Documentation
 
 ```js

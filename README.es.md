@@ -56,6 +56,15 @@ Tip: Puedes reiniciar el contenedor pasándole diferentes configuraciones para r
 
 Conclusion: Mientras nosotros realizamos la instalación tú puedes desarrollar la aplicación del cliente sin preocuparte de la adquisición de datos o del funcionamiento de los dispositivos IoT. Para más información contáctanos: info@einabit.com
 
+# Seguridad
+
+En caso de que el servidor requiera una clave encriptada:
+
+```javascript
+  const { KEY } = process.env; // KEY = "6fff68e8f216334f573e1a115bebe72f"
+  const cli = new Eina("hosted.einabit.api", KEY);
+```
+
 # Documentación
 
 ```js
