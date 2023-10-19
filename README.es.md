@@ -65,6 +65,8 @@ En caso de que el servidor requiera una clave encriptada:
   const cli = new Eina("hosted.einabit.api", KEY);
 ```
 
+[Explicación en el servicio de pruebas (inglés)](https://github.com/Einabit/sandbox/#optional-encryption)
+
 # Documentación
 
 ```js

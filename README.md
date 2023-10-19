@@ -70,6 +70,9 @@ In case the server requires encryption:
   const { KEY } = process.env; // KEY = "6fff68e8f216334f573e1a115bebe72f"
   const cli = new Eina("hosted.einabit.api", KEY);
 ```
+
+[Explanation and docs using testing server](https://github.com/Einabit/sandbox/#optional-encryption)
+
 # Documentation
 
 ```js
