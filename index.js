@@ -13,10 +13,10 @@ function encrypt(text, key) {
 const EMPTY_STR = d => !!d;
 
 function writeCommand (socket, command, key) {
-  let auxstr = command + "\n";
-  if (key) auxstr = encrypt(command + "\n", key);
+  let auxstr = command;
+  if (key) auxstr = encrypt(command, key);
 
-  socket.write(auxstr);
+  socket.write(auxstr + "\n");
 }
 
 const self = function (host, key) {
