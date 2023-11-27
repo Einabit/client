@@ -1,5 +1,6 @@
 const net = require("net");
 const crypto = require("crypto");
+const rl = require("readline");
 
 function encrypt(text, key) {
   const iv = crypto.randomBytes(16);
@@ -41,7 +42,8 @@ self.prototype.tap = function (name, ...aux) {
   const command = args.join();
   socket.connect(1337, this.host);
   socket.on("connect", () => writeCommand(socket, command, this.key));
-  socket.on("data", d => d.toString().split("\n").filter(EMPTY_STR).forEach(line => change(line)));
+  const rli = rl.createInterface(socket);
+  rli.on("line", line => change(line));
   return () => socket.destroy();
 }
 
@@ -52,11 +54,12 @@ self.prototype.fetch = function (name, fromTs, toTs, newLineCbk) {
   socket.connect(1337, this.host);
   socket.on("connect", () => writeCommand(socket, command, this.key));
   const buffer = [];
-  socket.on("data", d => buffer.push.apply(buffer, d.toString().split("\n").filter(EMPTY_STR)));
+  const rli = rl.createInterface(socket);
+  rli.on("line", line => buffer.push(line));
   if (typeof newLineCbk === "function") {
-    socket.on("end", () => buffer.forEach(newLineCbk));
+    rli.on("close", () => buffer.forEach(newLineCbk));
   } else {
-    return new Promise(resolve => socket.on("end", () => resolve(buffer)));
+    return new Promise(resolve => rli.on("close", () => resolve(buffer)));
   }
 }
 
@@ -67,13 +70,13 @@ self.prototype.value = function (name, newLineCbk) {
   socket.connect(1337, this.host);
   socket.on("connect", () => writeCommand(socket, command, this.key));
   let result = null;
-  socket.on("data", d => result = d.toString().trim());
+  const rli = rl.createInterface(socket);
+  rli.on("line", line => result = line);
   if (typeof newLineCbk === "function") {
-    socket.on("end", () => newLineCbk(result));
+    rli.on("close", () => newLineCbk(result));
   } else {
-    return new Promise(resolve => socket.on("end", () => resolve(result)));
+    return new Promise(resolve => rli.on("close", () => resolve(result)));
   }
-
 }
 
 self.prototype.last = function (name, amount, newLineCbk) {
@@ -83,13 +86,14 @@ self.prototype.last = function (name, amount, newLineCbk) {
   socket.connect(1337, this.host);
   socket.on("connect", () => writeCommand(socket, command, this.key));
   const buffer = [];
-  socket.on("data", d => buffer.push.apply(buffer, d.toString().split("\n").filter(EMPTY_STR)));
-  if (typeof newLineCbk === "function") {
-    socket.on("end", () => buffer.forEach(d => newLineCbk(d)));
-  } else {
-    return new Promise(resolve => socket.on("end", () => resolve(buffer)));
-  }
 
+  const rli = rl.createInterface(socket);
+  rli.on("line", line => buffer.push(line));
+  if (typeof newLineCbk === "function") {
+    rli.on("close", () => buffer.forEach(newLineCbk));
+  } else {
+    return new Promise(resolve => rli.on("close", () => resolve(buffer)));
+  }
 }
 
 module.exports = self;
